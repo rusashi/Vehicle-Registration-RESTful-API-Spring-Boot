@@ -2,8 +2,8 @@ package kz.rusty.service;
 
 import org.junit.Test;
 
-import kz.rusty.Repository.VehicleRepository;
 import kz.rusty.model.Vehicle;
+import kz.rusty.repository.VehicleRepository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
