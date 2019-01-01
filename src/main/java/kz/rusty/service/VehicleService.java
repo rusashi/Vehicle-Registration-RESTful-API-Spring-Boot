@@ -6,4 +6,6 @@ public interface VehicleService {
 
 	Vehicle findById(Long id);
 
+	Iterable<Vehicle> findAll();
+
 }

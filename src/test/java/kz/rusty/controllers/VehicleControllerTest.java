@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.jayway.jsonpath.internal.function.text.Length;
 
 import kz.rusty.model.Vehicle;
 import kz.rusty.service.VehicleService;
@@ -38,6 +38,14 @@ public class VehicleControllerTest {
 		mockMvc.perform(get("/vehicles/111")).andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$").isNotEmpty());
+	}
+	
+	@Test
+	public void lookupAllVehicles_shouldReturnJSONArray() throws Exception {
+		when(vehicleService.findAll()).thenReturn(Arrays.asList(new Vehicle()));
+		mockMvc.perform(get("/vehicles")).andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$",hasSize(1)));
 	}
 
 }

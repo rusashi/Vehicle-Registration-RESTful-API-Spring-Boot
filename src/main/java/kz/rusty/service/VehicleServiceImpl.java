@@ -25,11 +25,16 @@ public class VehicleServiceImpl implements VehicleService {
 		if (id == null) {
 			throw new VehicleServiceClientException("Null argument was passed");
 		}
-		Optional<Vehicle> vehicOptional = vehicleRepository.findById(id);
-		if (!vehicOptional.isPresent()) {
+		Optional<Vehicle> vehicleOptional = vehicleRepository.findById(id);
+		if (!vehicleOptional.isPresent()) {
 			throw new VehicleServiceClientException("Vehicle with number "+id+" does not exist");
 		}
-		return vehicOptional.get();
+		return vehicleOptional.get();
+	}
+
+	@Override
+	public Iterable<Vehicle> findAll() {
+		return vehicleRepository.findAll();
 	}
 		
 }

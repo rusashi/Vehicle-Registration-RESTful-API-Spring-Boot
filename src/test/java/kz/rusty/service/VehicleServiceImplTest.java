@@ -1,5 +1,6 @@
 package kz.rusty.service;
 
+import org.h2.util.New;
 import org.junit.Test;
 
 import kz.rusty.model.Vehicle;
@@ -10,10 +11,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class VehicleServiceImplTest {
 
+	////// findById //////
 	@Test
 	public void lookupExistingVehicle_shouldReturnObject() {
 		VehicleRepository vehicleRepository = mock(VehicleRepository.class);
@@ -49,6 +54,22 @@ public class VehicleServiceImplTest {
 			assertEquals("Null argument was passed", e.getMessage());
 		}
 		
+	}
+	
+	////findAll //////
+	
+	@Test
+	public void lookupAllVehicles_shouldReturnIterable() {
+		List<Vehicle> vehicles = new ArrayList<Vehicle>();
+		
+		VehicleRepository vehicleRepository = mock(VehicleRepository.class);
+		when(vehicleRepository.findAll()).thenReturn(vehicles);
+		
+		VehicleService vehicleService = new VehicleServiceImpl(vehicleRepository);
+		Iterable<Vehicle> vehiclesIterable = vehicleService.findAll();
+		
+		assertEquals(vehicles, vehiclesIterable);
+		verify(vehicleRepository, times(1)).findAll();
 	}
 
 }

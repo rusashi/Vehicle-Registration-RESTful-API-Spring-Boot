@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kz.rusty.exception.VehicleServiceClientException;
+import kz.rusty.model.Vehicle;
 import kz.rusty.service.VehicleService;
 
 @RestController
@@ -20,6 +21,12 @@ public class VehicleController {
 	@Autowired
 	public VehicleController(VehicleService vehicleService) {
 		this.vehicleService = vehicleService;
+	}
+	
+	
+	@GetMapping
+	public ResponseEntity<Iterable<Vehicle>> findAllVehicles() {		
+		return ResponseEntity.ok(vehicleService.findAll());
 	}
 	
 	@GetMapping("/{vehicleId}")
